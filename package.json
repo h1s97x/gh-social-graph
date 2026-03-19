@@ -31,7 +31,6 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "preinstall": "npx only-allow pnpm",
     "lint": "eslint",
     "start": "next start",
     "ts-check": "tsc -p tsconfig.json"

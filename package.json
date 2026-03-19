@@ -1,7 +1,24 @@
 {
   "name": "gh-social-graph",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "description": "Explore your developer social universe - Visualize GitHub social networks with interactive force-directed graphs",
+  "keywords": [
+    "github",
+    "social-graph",
+    "visualization",
+    "d3",
+    "network",
+    "developer",
+    "collaboration",
+    "nextjs",
+    "react"
+  ],
+  "homepage": "https://github.com/h1s97x/gh-social-graph",
+  "bugs": {
+    "url": "https://github.com/h1s97x/gh-social-graph/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "h1s97x",
     "email": "yang1297656998@outlook.com",
@@ -100,6 +117,15 @@
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
-    "pnpm": ">=9.0.0"
-  }
+    "pnpm": ">=9.0.0",
+    "node": ">=18.0.0"
+  },
+  "files": [
+    ".next",
+    "public",
+    "src",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ]
 }

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     '协作分析',
     'D3.js',
   ],
-  authors: [{ name: 'GitHub Social Graph Team', url: 'https://github.com' }],
+  authors: [{ name: 'H1S97X', url: 'https://github.com/h1s97x/gh-social-graph' }],
   generator: 'Next.js',
   icons: {
     icon: '/favicon.ico',

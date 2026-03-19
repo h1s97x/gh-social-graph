@@ -80,7 +80,7 @@ export default function Home() {
     <div className="relative min-h-screen overflow-hidden">
       {/* 星空背景 */}
       <StarfieldBackground />
-      
+
       {/* 彩蛋 */}
       <EasterEggs />
 
@@ -103,7 +103,7 @@ export default function Home() {
               </div>
             </div>
             <a
-              href="https://github.com"
+              href="https://github.com/h1s97x/gh-social-graph"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -420,7 +420,7 @@ export default function Home() {
             <p>
               Built with ❤️ using Next.js |{' '}
               <a
-                href="https://github.com"
+                href="https://github.com/h1s97x/gh-social-graph"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"

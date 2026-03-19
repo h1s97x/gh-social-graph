@@ -20,7 +20,7 @@
 ### 报告 Bug
 
 在提交 Bug 报告之前，请先：
-1. 检查 [Issues](https://github.com/your-username/github-social-graph/issues) 中是否已有相同问题
+1. 检查 [Issues](https://github.com/h1s97x/gh-social-graph/issues) 中是否已有相同问题
 2. 确认你使用的是最新版本
 3. 收集以下信息：
    - 操作系统和浏览器版本

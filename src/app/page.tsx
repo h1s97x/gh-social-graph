@@ -21,7 +21,7 @@ import {
   Code2,
   TrendingUp,
 } from 'lucide-react';
-import { SocialGraph, GraphNode, AnalysisResult } from '@/lib/github/types';
+import { GraphNode, AnalysisResult } from '@/lib/github/types';
 
 export default function Home() {
   const [username, setUsername] = useState('');
@@ -68,10 +68,11 @@ export default function Home() {
   }, [username, token]);
 
   const handleNodeClick = useCallback((node: GraphNode) => {
-    if (node.type === 'user') {
-      window.open((node.data as any).html_url, '_blank');
-    } else if (node.type === 'repo') {
-      window.open((node.data as any).html_url, '_blank');
+    const nodeData = node.data as { html_url?: string };
+    if (node.type === 'user' || node.type === 'repo') {
+      if (nodeData.html_url) {
+        window.open(nodeData.html_url, '_blank');
+      }
     }
   }, []);
 

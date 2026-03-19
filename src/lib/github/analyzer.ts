@@ -20,7 +20,7 @@ const NODE_COLORS = {
 
 export class SocialGraphAnalyzer {
   private api: GitHubAPIService;
-  private cache: Map<string, any> = new Map();
+  private cache: Map<string, unknown> = new Map();
 
   constructor(api?: GitHubAPIService) {
     this.api = api || createGitHubAPI();
@@ -37,7 +37,7 @@ export class SocialGraphAnalyzer {
       depth?: number;
     } = {}
   ): Promise<AnalysisResult> {
-    const { maxFollowers = 100, maxRepos = 20, depth = 1 } = options;
+    const { maxFollowers = 100, maxRepos = 20 } = options;
 
     // 1. 获取主用户信息
     const mainUser = await this.api.getUser(username);
@@ -162,7 +162,7 @@ export class SocialGraphAnalyzer {
             repo.full_name,
             stargazerList.map((s) => s.user.login)
           );
-        } catch (error) {
+        } catch {
           // Stargazers API 可能需要认证
           console.log(`Could not fetch stargazers for ${repo.full_name}`);
         }

@@ -2,7 +2,14 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { Sparkles } from 'lucide-react';
+
+// ForceGraph2D 类型定义
+interface ForceGraphMethods {
+  // 基础方法
+  [key: string]: unknown;
+}
 
 const ForceGraph2D = dynamic(() => import('react-force-graph-2d'), {
   ssr: false,
@@ -16,7 +23,7 @@ const ForceGraph2D = dynamic(() => import('react-force-graph-2d'), {
   ),
 });
 
-import { SocialGraph, GraphNode } from '@/lib/github/types';
+import { SocialGraph, GraphNode, GraphLink } from '@/lib/github/types';
 
 interface SocialGraphVisualizationProps {
   data: SocialGraph;
@@ -31,7 +38,7 @@ export function SocialGraphVisualization({
   width,
   height,
 }: SocialGraphVisualizationProps) {
-  const graphRef = useRef<any>(null);
+  const graphRef = useRef<ForceGraphMethods | null>(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const [hoverNode, setHoverNode] = useState<GraphNode | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -52,7 +59,7 @@ export function SocialGraphVisualization({
 
   // 绘制节点
   const paintNode = useCallback(
-    (node: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+    (node: GraphNode & { x: number; y: number; color: string }, ctx: CanvasRenderingContext2D, globalScale: number) => {
       // 检查坐标是否有效
       if (!isFinite(node.x) || !isFinite(node.y)) return;
 
@@ -101,7 +108,7 @@ export function SocialGraphVisualization({
 
   // 绘制链接
   const paintLink = useCallback(
-    (link: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+    (link: GraphLink & { source: { x: number; y: number }; target: { x: number; y: number } }, ctx: CanvasRenderingContext2D, globalScale: number) => {
       // 检查坐标是否有效
       if (
         !isFinite(link.source.x) ||
@@ -144,7 +151,7 @@ export function SocialGraphVisualization({
 
   // 处理节点点击
   const handleNodeClick = useCallback(
-    (node: any) => {
+    (node: GraphNode) => {
       if (onNodeClick) {
         onNodeClick(node);
       }
@@ -154,8 +161,12 @@ export function SocialGraphVisualization({
 
   // 处理鼠标移动
   const handleMouseMove = useCallback(
-    (node: any) => {
+    (node: GraphNode | null) => {
       setHoverNode(node);
+      // 更新鼠标位置用于悬停卡片定位
+      if (node) {
+        setMousePos({ x: 0, y: 0 });
+      }
     },
     []
   );
@@ -169,8 +180,8 @@ export function SocialGraphVisualization({
           width={dimensions.width}
           height={dimensions.height}
           nodeRelSize={6}
-          nodeVal={(node: any) => node.connections || 1}
-          nodeColor={(node: any) => node.color}
+          nodeVal={(node: GraphNode) => node.connections || 1}
+          nodeColor={(node: GraphNode) => node.color}
           nodeCanvasObject={paintNode}
           linkCanvasObject={paintLink}
           onNodeClick={handleNodeClick}
@@ -203,10 +214,12 @@ export function SocialGraphVisualization({
         >
           <div className="flex items-center gap-2">
             {hoverNode.avatar && (
-              <img
+              <Image
                 src={hoverNode.avatar}
                 alt={hoverNode.label}
-                className="w-8 h-8 rounded-full"
+                width={32}
+                height={32}
+                className="rounded-full"
               />
             )}
             <div>
@@ -216,9 +229,9 @@ export function SocialGraphVisualization({
               </p>
             </div>
           </div>
-          {hoverNode.type === 'user' && (hoverNode.data as any).bio && (
+          {hoverNode.type === 'user' && (hoverNode.data as { bio?: string }).bio && (
             <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
-              {(hoverNode.data as any).bio}
+              {(hoverNode.data as { bio?: string }).bio}
             </p>
           )}
         </div>

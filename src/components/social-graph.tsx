@@ -77,7 +77,7 @@ export function SocialGraphVisualization({
 
       // 如果有头像，绘制头像
       if (node.avatar && node.type === 'user') {
-        const img = new Image();
+        const img = new (globalThis.Image as any)();
         img.src = node.avatar;
         ctx.save();
         ctx.beginPath();
@@ -175,17 +175,17 @@ export function SocialGraphVisualization({
     <div className="relative w-full h-full">
       {data && data.nodes && data.nodes.length > 0 ? (
         <ForceGraph2D
-          ref={graphRef}
-          graphData={data}
+          ref={graphRef as any}
+          graphData={data as any}
           width={dimensions.width}
           height={dimensions.height}
           nodeRelSize={6}
-          nodeVal={(node: GraphNode) => node.connections || 1}
-          nodeColor={(node: GraphNode) => node.color}
-          nodeCanvasObject={paintNode}
-          linkCanvasObject={paintLink}
-          onNodeClick={handleNodeClick}
-          onNodeHover={handleMouseMove}
+          nodeVal={(node: any) => node.connections || 1}
+          nodeColor={(node: any) => node.color}
+          nodeCanvasObject={paintNode as any}
+          linkCanvasObject={paintLink as any}
+          onNodeClick={handleNodeClick as any}
+          onNodeHover={handleMouseMove as any}
           enableZoomInteraction={true}
           enablePanInteraction={true}
           enableNodeDrag={true}
